@@ -58,7 +58,7 @@
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item" href="">
+              <a class="dropdown-item" href="{% url 'Trainee_logout' %}">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
@@ -79,19 +79,19 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{% url 'Trainee_Dashboard' %}">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{% url 'Trainee_workout_images' %}">
               <i class="icon-grid-2 menu-icon"></i>
               <span class="menu-title">Workout</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{% url 'Trainee_payment_history' %}">
               <i class="icon-paper menu-icon"></i>
               <span class="menu-title">Payment History</span>
             </a>
