@@ -13,6 +13,7 @@ urlpatterns = [
     re_path('admin/', admin.site.urls),
     re_path(r'^$', views.login, name='login'),
     re_path(r'^Registration/$',views.Registration,name='Registration'),
+    re_path(r'^reset_password/$', views.reset_password, name='reset_password'),
 
     #******************************Super Admin******************************
 
