@@ -121,3 +121,7 @@ class Achievement(models.Model):
     Achievement_image= models.ImageField(upload_to='images/', blank=True, null=True)
     def __str__(self):
         return self.name
+
+
+date = models.DateField(null=True, blank=True)
+    fromtime = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)

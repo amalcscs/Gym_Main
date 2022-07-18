@@ -166,6 +166,8 @@ urlpatterns = [
     re_path(r'^Trainee_logout/$', views.Trainee_logout, name='Trainee_logout'),
     re_path(r'^Trainee_Profile_Imagechange/(?P<id>\d+)/$',views.Trainee_Profile_Imagechange,name='Trainee_Profile_Imagechange'),
     re_path(r'^Trainee_Changepwd/(?P<id>\d+)/$',views.Trainee_Changepwd,name='Trainee_Changepwd'),
+
+    re_path(r'^Trainee_Booking/$',views.Trainee_Booking,name='Trainee_Booking'),
     
     #------------------------------unnikrishnan------------------------------
 

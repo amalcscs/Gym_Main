@@ -1770,3 +1770,13 @@ def Trainee_workoutvideos1(request,id):
     else:
         return redirect('/')
     
+def Trainee_Booking(request):
+    if 'Tne_id' in request.session:
+        if request.session.has_key('Tne_id'):
+            Tne_id = request.session['Tne_id']
+        else:
+                return redirect('/')
+        mem1 = user_registration.objects.filter(id=Tne_id)
+        return render(request,'Trainee_Booking.html',{'mem1':mem1})  
+    else:
+        return redirect('/')
