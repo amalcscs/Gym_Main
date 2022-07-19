@@ -1780,3 +1780,38 @@ def Trainee_Booking(request):
         return render(request,'Trainee_Booking.html',{'mem1':mem1})  
     else:
         return redirect('/')
+
+def Trainee_add_Booking(request):
+    if 'Tne_id' in request.session:
+        if request.session.has_key('Tne_id'):
+            Tne_id = request.session['Tne_id']
+        else:
+                return redirect('/')
+        mem1 = user_registration.objects.filter(id=Tne_id)
+        if request.method=="POST":
+            a = Booking()
+            a.fromdate = request.POST['fromdate']
+            # a.todate = request.POST['todate']
+            a.fromtime = request.POST['fromtime']
+            a.totime = request.POST['totime']
+            a.user_id = Tne_id
+            a.status = "request"
+            a.save()
+            msg_success = "Booking request added successfull"
+            return render(request,'Trainee_add_Booking.html',{'msg_success':msg_success})
+        return render(request,'Trainee_add_Booking.html',{'mem1':mem1})  
+    else:
+        return redirect('/')
+        
+
+def Trainee_MyBooking(request):
+    if 'Tne_id' in request.session:
+        if request.session.has_key('Tne_id'):
+            Tne_id = request.session['Tne_id']
+        else:
+                return redirect('/')
+        mem1 = user_registration.objects.filter(id=Tne_id)
+        booking = Booking.objects.filter(user_id=Tne_id)
+        return render(request,'Trainee_MyBooking.html',{'mem1':mem1,'booking':booking})  
+    else:
+        return redirect('/')

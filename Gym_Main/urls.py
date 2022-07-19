@@ -168,6 +168,8 @@ urlpatterns = [
     re_path(r'^Trainee_Changepwd/(?P<id>\d+)/$',views.Trainee_Changepwd,name='Trainee_Changepwd'),
 
     re_path(r'^Trainee_Booking/$',views.Trainee_Booking,name='Trainee_Booking'),
+    re_path(r'^Trainee_add_Booking/$',views.Trainee_add_Booking,name='Trainee_add_Booking'),
+    re_path(r'^Trainee_MyBooking/$',views.Trainee_MyBooking,name='Trainee_MyBooking'),
     
     #------------------------------unnikrishnan------------------------------
 
