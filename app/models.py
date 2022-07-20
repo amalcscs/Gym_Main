@@ -52,6 +52,7 @@ class user_registration(models.Model):
         auto_now_add=False, auto_now=False,  null=True, blank=True)
     status = models.CharField(max_length=240, null=True, default='')
     rate = models.CharField(max_length=200, null=True, default='')
+    work_shift = models.CharField(max_length=200, null=True, default='')
     Trainer_id = models.IntegerField(default='0', null=True, blank=True)
 
     def __str__(self):
@@ -125,8 +126,12 @@ class Achievement(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(user_registration, on_delete=models.DO_NOTHING,
                                     related_name='Bookinguser', null=True, blank=True)
+    trainer = models.ForeignKey(user_registration, on_delete=models.DO_NOTHING,
+                                    related_name='Bookingtrainer', null=True, blank=True)
     fromdate = models.DateField(null=True, blank=True)
     todate = models.DateField(null=True, blank=True)
     fromtime = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     totime = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
     status = models.CharField(max_length=240, null=True, default='')
+    reason = models.CharField(max_length=240, null=True, default='')
+    work_shift = models.CharField(max_length=240, null=True, default='')

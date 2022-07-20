@@ -150,6 +150,34 @@ def SuperAdmin_logout(request):
     request.session.flush()
     return redirect("/")
 
+
+def SuperAdmin_Bookings(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        users = User.objects.filter(id=SAdm_id)
+        booking = Booking.objects.all().order_by("-id")
+        booking1 = Booking.objects.all().order_by("-id")
+        return render(request,'SuperAdmin_Bookings.html',{'users':users,'booking':booking,'booking1':booking1})
+    else:
+        return redirect('/')
+
+def SuperAdmin_AcceptRequest(request,id):
+    n = Booking.objects.filter(id=id).update(status = "Booked")
+    return redirect('SuperAdmin_Bookings')
+
+def SuperAdmin_RejectReason(request,id):
+    if request.method == 'POST':
+        v = Booking.objects.get(id=id)
+        v.reason=request.POST.get('reply')
+        v.save()
+        msg_success = "Reply send successfully"
+        n = Booking.objects.filter(id=id).update(status = "Rejected")
+        return render(request, 'SuperAdmin_Dashboard.html',{'msg_success':msg_success})
+    return redirect('SuperAdmin_Dashboard')
+
 #------------------------------Ananadhu------------------------------
 
 def SuperAdmin_index(request):
@@ -825,6 +853,7 @@ def Active_trainersave(request,id):
         if request.method == 'POST':
             trainer.rate = request.POST.get('trate')
             trainer.status = request.POST.get('tstatus')
+            trainer.work_shift = request.POST.get('work_shift')
             trainer.save()
             msg_success = "saved successfully"
             return render(request,'SuperAdmin_active_trainers.html',{'users':users,'msg_success':msg_success})
@@ -1788,10 +1817,13 @@ def Trainee_add_Booking(request):
         else:
                 return redirect('/')
         mem1 = user_registration.objects.filter(id=Tne_id)
+        des = designation.objects.get(designation="trainer")
+        trainer = user_registration.objects.filter(designation_id=des)
         if request.method=="POST":
             a = Booking()
             a.fromdate = request.POST['fromdate']
-            # a.todate = request.POST['todate']
+            a.work_shift = request.POST['workshift']
+            a.trainer_id = request.POST['trainer']
             a.fromtime = request.POST['fromtime']
             a.totime = request.POST['totime']
             a.user_id = Tne_id
@@ -1799,7 +1831,7 @@ def Trainee_add_Booking(request):
             a.save()
             msg_success = "Booking request added successfull"
             return render(request,'Trainee_add_Booking.html',{'msg_success':msg_success})
-        return render(request,'Trainee_add_Booking.html',{'mem1':mem1})  
+        return render(request,'Trainee_add_Booking.html',{'mem1':mem1,'trainer':trainer})  
     else:
         return redirect('/')
         
@@ -1811,7 +1843,7 @@ def Trainee_MyBooking(request):
         else:
                 return redirect('/')
         mem1 = user_registration.objects.filter(id=Tne_id)
-        booking = Booking.objects.filter(user_id=Tne_id)
+        booking = Booking.objects.filter(user_id=Tne_id).order_by("-id")
         return render(request,'Trainee_MyBooking.html',{'mem1':mem1,'booking':booking})  
     else:
         return redirect('/')

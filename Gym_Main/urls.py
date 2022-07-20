@@ -22,6 +22,11 @@ urlpatterns = [
     re_path(r'^SuperAdmin_logout/$', views.SuperAdmin_logout, name='SuperAdmin_logout'),
     re_path(r'^SuperAdmin_Accountsett/$',views.SuperAdmin_Accountsett,name='SuperAdmin_Accountsett'),
 
+    re_path(r'^SuperAdmin_Bookings/$',views.SuperAdmin_Bookings,name='SuperAdmin_Bookings'),
+    re_path(r'^SuperAdmin_AcceptRequest/(?P<id>\d+)/$',views.SuperAdmin_AcceptRequest,name='SuperAdmin_AcceptRequest'),
+    re_path(r'^SuperAdmin_RejectReason/(?P<id>\d+)/$',views.SuperAdmin_RejectReason,name='SuperAdmin_RejectReason'),
+
+
     #------------------------------Anandhu------------------------------
 
     re_path(r'^SuperAdmin_index/$', views.SuperAdmin_index, name='SuperAdmin_index'),

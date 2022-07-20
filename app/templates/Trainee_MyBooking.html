@@ -21,6 +21,7 @@
                     <th>From Time</th>
                     <th>To Time</th>
                     <th>Status</th>
+                    <th>Reason</th>
                   </tr>
                 </thead>
                 <tbody id="myTable">
@@ -35,7 +36,12 @@
                         <button type="button" class="btn btn-success">Booked</button>
                     {% elif i.status == "request" %}
                     <button type="button" class="btn btn-warning">Pending</button>
+                    {% elif i.status == "Rejected" %}
+                    <button type="button" class="btn btn-danger">Rejected</button>
                     {% endif %}
+                    </td>
+                    <td>
+                    {{i.reason}}
                     </td>
                   </tr>
                   {% endfor %}
@@ -49,6 +55,49 @@
     </div>
     <!-- main-panel ends -->
   </div>
+
+
+  
+<!-- Modal -->
+{% for i in booking %}
+<div class="modal" id="myModal{{i.id}}" >
+    <div class="modal-dialog">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 grid-margin  modal-content" >
+
+            <!-- Modal Header -->
+            <div class="modal-header" >
+                <h4 class="modal-title">Rejected Reason</h4>
+                <button type="button " class="close "
+                    data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" >
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-body" >
+                            
+                                  {{i.reason}}
+                               
+                            </div>
+                            <br>
+                           
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+
+
 
   <script>
     $(document).ready(function(){

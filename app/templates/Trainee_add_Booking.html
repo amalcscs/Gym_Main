@@ -29,20 +29,38 @@
                        <input type="date" class="form-control txtDate" name="fromdate" required>
                     </div>
                 </div>
-                    <!-- <div class="form-group row">
+                    <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            To Date
+                            Day Shift
                         </label>
                         <div class="col-sm-9">
-                       <input type="date" class="form-control txtDate" name="todate" required>
+                       <select class="form-control" name="workshift" required>
+                        <option value="">--Select--</option>
+                        <option>Morning</option>
+                          <option>Evening</option>
+                        
+                       </select>
+                       </div>
+                       </div>
+                       <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Trainer
+                        </label>
+                        <div class="col-sm-9">
+                       <select name="trainer" class="form-control" name="trainer" required>
+                         <option value="">--Select--</option>
+                        {% for i in trainer %}
+                          <option value="{{i.id}}">{{i.fullname}}</option>
+                        {% endfor %}
+                       </select>
                     </div>
-                </div> -->
+                </div>
                 <div class="form-group row">
                     <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                         FromTime
                     </label>
                     <div class="col-sm-9">
-                        <input type="time" class="form-control" id="exampleInputUsername2" name="fromtime" style="color:inherit;" autocomplete="off">
+                        <input type="time" class="form-control" id="exampleInputUsername2" required name="fromtime" style="color:inherit;" autocomplete="off">
                     </div>
                 </div>
 
@@ -51,7 +69,7 @@
                         ToTime
                     </label>
                     <div class="col-sm-9">
-                        <input type="time" class="form-control" id="exampleInputUsername2" name="totime" style="color:inherit;" autocomplete="off">
+                        <input type="time" class="form-control" id="exampleInputUsername2" required name="totime" style="color:inherit;" autocomplete="off">
                     </div>
                 </div>
 
