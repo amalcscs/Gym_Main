@@ -21,8 +21,13 @@ urlpatterns = [
     
     re_path(r'^SuperAdmin_logout/$', views.SuperAdmin_logout, name='SuperAdmin_logout'),
     re_path(r'^SuperAdmin_Accountsett/$',views.SuperAdmin_Accountsett,name='SuperAdmin_Accountsett'),
+    re_path(r'^index/$',views.index,name='index'),
 
-    re_path(r'^SuperAdmin_Bookings/$',views.SuperAdmin_Bookings,name='SuperAdmin_Bookings'),
+    re_path(r'^SuperAdmin_BookingSelection/$',views.SuperAdmin_BookingSelection,name='SuperAdmin_BookingSelection'),
+    re_path(r'^SuperAdmin_Bookings/(?P<id>\d+)/$',views.SuperAdmin_Bookings,name='SuperAdmin_Bookings'),
+    re_path(r'^SuperAdmin_PassiveBookings/(?P<id>\d+)/$',views.SuperAdmin_PassiveBookings,name='SuperAdmin_PassiveBookings'),
+    re_path(r'^SuperAdmin_BookingProfile/$',views.SuperAdmin_BookingProfile,name='SuperAdmin_BookingProfile'),
+    re_path(r'^SuperAdmin_PassiveBookingProfile/$',views.SuperAdmin_PassiveBookingProfile,name='SuperAdmin_PassiveBookingProfile'),
     re_path(r'^SuperAdmin_AcceptRequest/(?P<id>\d+)/$',views.SuperAdmin_AcceptRequest,name='SuperAdmin_AcceptRequest'),
     re_path(r'^SuperAdmin_RejectReason/(?P<id>\d+)/$',views.SuperAdmin_RejectReason,name='SuperAdmin_RejectReason'),
 

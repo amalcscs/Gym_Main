@@ -150,23 +150,82 @@ def SuperAdmin_logout(request):
     request.session.flush()
     return redirect("/")
 
+def index(request):
+    return render(request,'index.html')
 
-def SuperAdmin_Bookings(request):
+def SuperAdmin_BookingSelection(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+           return redirect('/')    
+        users = User.objects.filter(id=SAdm_id)
+        des1 = designation.objects.get(designation='Trainee')
+        ActTrainee_count = user_registration.objects.filter(designation_id = des1).filter(status="active").count()
+        PasTrainee_count = user_registration.objects.filter(designation_id = des1).filter(status="resign").count()
+        return render(request,'SuperAdmin_BookingSelection.html',{'ActTrainee_count':ActTrainee_count,'users':users,'PasTrainee_count':PasTrainee_count,'des1':des1})
+    else:
+        return redirect('/') 
+
+def SuperAdmin_BookingProfile(request):
     if 'SAdm_id' in request.session:
         if request.session.has_key('SAdm_id'):
             SAdm_id = request.session['SAdm_id']
         else:
             return redirect('/')
         users = User.objects.filter(id=SAdm_id)
-        booking = Booking.objects.all().order_by("-id")
-        booking1 = Booking.objects.all().order_by("-id")
-        return render(request,'SuperAdmin_Bookings.html',{'users':users,'booking':booking,'booking1':booking1})
+        des = designation.objects.get(designation="trainee")
+        
+        newuser = user_registration.objects.filter(designation_id=des.id).filter(status="active")
+        return render(request,'SuperAdmin_BookingProfile.html',{'newuser':newuser,'users':users})
+    else:
+        return redirect('/') 
+
+def SuperAdmin_PassiveBookingProfile(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        users = User.objects.filter(id=SAdm_id)
+        des = designation.objects.get(designation="trainee")
+        
+        newuser = user_registration.objects.filter(designation_id=des.id).filter(status="resign")
+        return render(request,'SuperAdmin_PassiveBookingProfile.html',{'newuser':newuser,'users':users})
+    else:
+        return redirect('/') 
+
+def SuperAdmin_Bookings(request,id):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        users = User.objects.filter(id=SAdm_id)
+        booking = Booking.objects.filter(user_id=id).order_by("-id")
+        booking1 = user_registration.objects.get(id=id)
+        trainer = user_registration.objects.all()
+        return render(request,'SuperAdmin_Bookings.html',{'trainer':trainer,'users':users,'booking':booking,'booking1':booking1})
+    else:
+        return redirect('/')
+
+def SuperAdmin_PassiveBookings(request,id):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        users = User.objects.filter(id=SAdm_id)
+        booking = Booking.objects.filter(user_id=id).order_by("-id")
+        booking1 = user_registration.objects.get(id=id)
+        trainer = user_registration.objects.all()
+        return render(request,'SuperAdmin_PassiveBookings.html',{'trainer':trainer,'users':users,'booking':booking,'booking1':booking1})
     else:
         return redirect('/')
 
 def SuperAdmin_AcceptRequest(request,id):
     n = Booking.objects.filter(id=id).update(status = "Booked")
-    return redirect('SuperAdmin_Bookings')
+    return redirect('SuperAdmin_BookingProfile')
 
 def SuperAdmin_RejectReason(request,id):
     if request.method == 'POST':
@@ -175,8 +234,8 @@ def SuperAdmin_RejectReason(request,id):
         v.save()
         msg_success = "Reply send successfully"
         n = Booking.objects.filter(id=id).update(status = "Rejected")
-        return render(request, 'SuperAdmin_Dashboard.html',{'msg_success':msg_success})
-    return redirect('SuperAdmin_Dashboard')
+        return render(request, 'SuperAdmin_BookingProfile.html',{'msg_success':msg_success})
+    return redirect('SuperAdmin_BookingProfile')
 
 #------------------------------Ananadhu------------------------------
 

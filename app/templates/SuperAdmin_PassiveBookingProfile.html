@@ -1,0 +1,37 @@
+{% extends 'SuperAdmin_index.html'%} {% load static %} {% block content %}
+
+
+<div class="col-md-12 grid-margin transparent">
+   
+    <div class="row">
+        {% for i in newuser %}
+      <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4 stretch-card transparent">
+        <div class="card card-tale">
+        <a href='{% url "SuperAdmin_PassiveBookings" i.id %}' style="text-decoration: none; color: white;">
+          <div class="card-body">
+            <div class="row">
+                 <div class="col-md-4"></div>
+                 <div class="col-md-4">
+                 <img src="{{ i.photo.url }}" class="w-100 h-100 mt-2"
+                    style="border-radius: 50%;" />
+                </div>
+                <div class="col-md-4"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                      <h4 class="mt-4 ml-3 mb-2 text-light">{{i.fullname}}</h4>
+                    </div>
+                    <div class="col-md-4"></div>
+                    </div>
+              
+          </div>
+        </a>
+        </div>
+      </div>
+      {% endfor %}
+</div>
+
+</div>
+
+{% endblock %}
